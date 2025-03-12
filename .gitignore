@@ -1,0 +1,44 @@
+/.metadata/
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+**/logs/
+**/*.log
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+*.env
+
+# Node modules (if using frontend inside)
+node_modules/
+
+# Build outputs
+build/
