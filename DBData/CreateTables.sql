@@ -3,116 +3,117 @@ create database sitematerialinventorydb;
 use sitematerialinventorydb;
 -- USERS AND ROLES
 CREATE TABLE Roles (
-    RoleID INT PRIMARY KEY AUTO_INCREMENT,
-    RoleName VARCHAR(50) NOT NULL
+    roleid INT PRIMARY KEY AUTO_INCREMENT,
+    role_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Users (
-    UserID INT PRIMARY KEY AUTO_INCREMENT,
-    Name VARCHAR(100),
-    Email VARCHAR(100) UNIQUE,
-    PasswordHash VARCHAR(255),
-    RoleID INT,
-    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+    userid INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password_hash VARCHAR(255),
+    roleid INT,
+    FOREIGN KEY (roleid) REFERENCES Roles(roleid)
 );
 
 -- MATERIAL MASTER
 CREATE TABLE Materials (
-    MaterialID INT PRIMARY KEY AUTO_INCREMENT,
-    MaterialName VARCHAR(100) NOT NULL,
-    Unit VARCHAR(20),
-    ReorderLevel INT
+    materialid INT PRIMARY KEY AUTO_INCREMENT,
+    material_name VARCHAR(100) NOT NULL,
+    unit VARCHAR(20),
+    reorder_level INT
 );
 
 -- SUPPLIERS
 CREATE TABLE Suppliers (
-    SupplierID INT PRIMARY KEY AUTO_INCREMENT,
-    SupplierName VARCHAR(100),
-    ContactPerson VARCHAR(100),
-    PhoneNumber VARCHAR(15)
+    supplierid INT PRIMARY KEY AUTO_INCREMENT,
+    supplier_name VARCHAR(100),
+    contact_person VARCHAR(100),
+    phone_number VARCHAR(15)
 );
 
 -- CONSTRUCTION SITES (PROJECTS)
 CREATE TABLE Sites (
-    SiteID INT PRIMARY KEY AUTO_INCREMENT,
-    SiteName VARCHAR(100),
-    Location VARCHAR(100),
-    StartDate DATE,
-    EndDate DATE
+    siteid INT PRIMARY KEY AUTO_INCREMENT,
+    site_name VARCHAR(100),
+    location VARCHAR(100),
+    start_date DATE,
+    end_date DATE
 );
 
 -- STOCK PER SITE
-CREATE TABLE MaterialSiteStock (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    SiteID INT,
-    MaterialID INT,
-    CurrentStock INT DEFAULT 0,
-    FOREIGN KEY (SiteID) REFERENCES Sites(SiteID),
-    FOREIGN KEY (MaterialID) REFERENCES Materials(MaterialID)
+CREATE TABLE material_site_stock (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    siteid INT,
+    materialid INT,
+    current_stock INT DEFAULT 0,
+    FOREIGN KEY (siteid) REFERENCES Sites(siteid),
+    FOREIGN KEY (materialid) REFERENCES Materials(materialid)
 );
 
 -- STOCK TRANSACTIONS (IN/OUT)
-CREATE TABLE StockTransactions (
-    TransactionID INT PRIMARY KEY AUTO_INCREMENT,
-    SiteID INT,
-    MaterialID INT,
-    Date DATE,
-    Type ENUM('IN', 'OUT'),
-    Quantity INT,
-    SupplierID INT,
-    Remarks TEXT,
-    FOREIGN KEY (SiteID) REFERENCES Sites(SiteID),
-    FOREIGN KEY (MaterialID) REFERENCES Materials(MaterialID),
-    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
+CREATE TABLE stock_transactions (
+    transactionid INT PRIMARY KEY AUTO_INCREMENT,
+    siteid INT,
+    supplierid INT,
+    date DATE,
+    type ENUM('IN', 'OUT'),
+    quantity INT,
+    supplierid INT,
+    remarks TEXT,
+    FOREIGN KEY (siteid) REFERENCES Sites(siteid),
+    FOREIGN KEY (materialid) REFERENCES Materials(materialid),
+    FOREIGN KEY (supplierid) REFERENCES Suppliers(supplierid)
 );
 
 -- MATERIAL REQUESTS
-CREATE TABLE MaterialRequests (
-    RequestID INT PRIMARY KEY AUTO_INCREMENT,
-    SiteID INT,
-    MaterialID INT,
-    RequestedBy INT,
-    Quantity INT,
-    Date DATE,
-    Status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
-    FOREIGN KEY (SiteID) REFERENCES Sites(SiteID),
-    FOREIGN KEY (MaterialID) REFERENCES Materials(MaterialID),
-    FOREIGN KEY (RequestedBy) REFERENCES Users(UserID)
+CREATE TABLE material_requests (
+    requestid INT PRIMARY KEY AUTO_INCREMENT,
+    site_id INT,
+    material_id INT,
+    requested_by INT,
+    quantity INT,
+    date DATE,
+    status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+    FOREIGN KEY (site_id) REFERENCES Sites(site_id),
+    FOREIGN KEY (material_id) REFERENCES Materials(material_id),
+    FOREIGN KEY (requested_by) REFERENCES Users(requested_by)
 );
+
 
 -- APPROVAL TRACKING
 CREATE TABLE Approvals (
-    ApprovalID INT PRIMARY KEY AUTO_INCREMENT,
-    RequestID INT,
-    ApprovedBy INT,
-    ApprovedDate DATE,
-    Comments TEXT,
-    FOREIGN KEY (RequestID) REFERENCES MaterialRequests(RequestID),
-    FOREIGN KEY (ApprovedBy) REFERENCES Users(UserID)
+    approvalid INT PRIMARY KEY AUTO_INCREMENT,
+    requestid INT,
+    approved_by INT,
+    approved_date DATE,
+    comments TEXT,
+    FOREIGN KEY (requestid) REFERENCES material_requests(requestid),
+    FOREIGN KEY (approved_by) REFERENCES Users(userid)
 );
 
 -- DAILY CONSUMPTION REPORTS
-CREATE TABLE DailyConsumptionReports (
-    ReportID INT PRIMARY KEY AUTO_INCREMENT,
-    SiteID INT,
-    Date DATE,
-    MaterialID INT,
-    QuantityUsed INT,
-    UsedBy VARCHAR(100),
-    WorkDetail TEXT,
-    FOREIGN KEY (SiteID) REFERENCES Sites(SiteID),
-    FOREIGN KEY (MaterialID) REFERENCES Materials(MaterialID)
+CREATE TABLE daily_consumption_reports (
+    reportid INT PRIMARY KEY AUTO_INCREMENT,
+    siteid INT,
+    date DATE,
+    materialid INT,
+    quantity_used INT,
+    used_by VARCHAR(100),
+    work_detail TEXT,
+    FOREIGN KEY (siteid) REFERENCES Sites(siteid),
+    FOREIGN KEY (materialid) REFERENCES Materials(materialid)
 );
 
 -- LOW STOCK ALERTS
-CREATE TABLE LowStockAlerts (
-    AlertID INT PRIMARY KEY AUTO_INCREMENT,
-    SiteID INT,
-    MaterialID INT,
-    Date DATE,
-    CurrentStock INT,
-    ReorderLevel INT,
-    ActionTaken VARCHAR(100),
-    FOREIGN KEY (SiteID) REFERENCES Sites(SiteID),
-    FOREIGN KEY (MaterialID) REFERENCES Materials(MaterialID)
+CREATE TABLE low_stock_alerts (
+    alertid INT PRIMARY KEY AUTO_INCREMENT,
+    siteid INT,
+    materialid INT,
+    date DATE,
+    current_stock INT,
+    reorder_level INT,
+    action_taken VARCHAR(100),
+    FOREIGN KEY (siteid) REFERENCES Sites(siteid),
+    FOREIGN KEY (materialid) REFERENCES Materials(materialid)
 );
