@@ -33,6 +33,7 @@ public class MaterialController {
 
     @GetMapping
     public ResponseEntity<List<Material>> getAllMaterials() {
+    	logger.info("Get All Materials");
         return ResponseEntity.ok(materialService.getAllMaterials());
     }
 
@@ -52,11 +53,16 @@ public class MaterialController {
     public ResponseEntity<Material> updateMaterial(@PathVariable Integer id, @RequestBody Material updatedMaterial) {
     	logger.info("Updating material with name: {}", updatedMaterial.getMaterialName());
         Material updated = materialService.updateMaterial(id, updatedMaterial);
+        if (updated == null) {
+            logger.warn("Material with ID {} not updated", id);
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMaterial(@PathVariable Integer id) {
+    	logger.info("Deleting material with ID: {}", id);
         materialService.deleteMaterial(id);
         return ResponseEntity.ok("Material with ID " + id + " deleted successfully.");
     }
