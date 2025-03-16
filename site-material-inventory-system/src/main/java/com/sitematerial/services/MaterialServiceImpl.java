@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class MaterialServiceImpl implements IMaterialService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MaterialController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MaterialServiceImpl.class);
 	
     @Autowired
     private MaterialRepository materialRepo;
