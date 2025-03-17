@@ -59,4 +59,16 @@ public class UserController {
         return ResponseEntity.ok("User updated successfully");
     }
 
+//    @PatchMapping("/{id}")
+//    public ResponseEntity<String> updateUserRole(@PathVariable Integer id,
+//                                                 @RequestBody String roleName) {
+//        logger.info("User role change by ID: {}", id);
+////        String rolename = requestBody.get("rolename");
+//
+//        User u = userService.updateuserRole(id, roleName);
+//        if (u == null) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not updated");
+//        }
+//        return ResponseEntity.ok("User updated successfully");
+//    }
 }
