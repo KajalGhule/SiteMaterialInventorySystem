@@ -46,4 +46,10 @@ public class ReportController {
         List<MaterialUsageDTO> usageList = reportService.getMaterialUsage(siteId, start, end);
         return ResponseEntity.ok(usageList);
     }
+    
+    @GetMapping("/stock-summary/{siteId}")
+    public ResponseEntity<List<MaterialSiteStock>> getStockSummary(@PathVariable Integer siteId) {
+        List<MaterialSiteStock> summary = reportService.getStockSummaryBySite(siteId);
+        return ResponseEntity.ok(summary);
+    }
 }

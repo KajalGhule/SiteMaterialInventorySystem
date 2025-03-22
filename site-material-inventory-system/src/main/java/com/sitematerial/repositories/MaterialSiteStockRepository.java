@@ -11,4 +11,6 @@ public interface MaterialSiteStockRepository extends JpaRepository<MaterialSiteS
 
     @Query("SELECT m FROM MaterialSiteStock m WHERE m.currentStock <= m.material.reorderLevel")
     List<MaterialSiteStock> findByCurrentStockLessThanEqualReorderLevel();
+    
+    List<MaterialSiteStock> findBySite_SiteID(Integer siteId);
 }
