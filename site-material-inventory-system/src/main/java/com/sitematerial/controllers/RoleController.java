@@ -13,6 +13,7 @@ import com.sitematerial.services.RoleServiceImpl;
 
 @RestController
 @RequestMapping("/api/roles")
+@CrossOrigin("*")
 public class RoleController {
     private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/material-requests")
+@CrossOrigin("*")
 public class MaterialRequestController {
 
     private static final Logger logger = LoggerFactory.getLogger(MaterialRequestController.class);

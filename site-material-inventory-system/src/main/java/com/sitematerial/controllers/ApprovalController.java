@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/approvals")
+@CrossOrigin("*")
 public class ApprovalController {
 
     private static final Logger logger = LoggerFactory.getLogger(ApprovalController.class);

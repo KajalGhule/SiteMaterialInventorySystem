@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reports/daily")
+@CrossOrigin("*")
 public class DailyConsumptionReportController {
 
     private static final Logger logger = LoggerFactory.getLogger(DailyConsumptionReportController.class);

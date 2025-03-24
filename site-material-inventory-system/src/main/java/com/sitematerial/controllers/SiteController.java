@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/sites")
+@CrossOrigin("*")
 public class SiteController {
 
     private static final Logger logger = LoggerFactory.getLogger(SiteController.class);

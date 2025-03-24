@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/suppliers")
+@CrossOrigin("*")
 public class SupplierController {
 
     private static final Logger logger = LoggerFactory.getLogger(SupplierController.class);
